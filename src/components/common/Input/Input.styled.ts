@@ -1,4 +1,5 @@
 import { flexAlignCenter, flexColumn } from '@/styles/common.styled';
+import theme from '@/styles/theme.styled';
 import styled from 'styled-components';
 
 export const InputWrapper = styled.div`
@@ -31,21 +32,30 @@ export const StyledInput = styled.input<{
   borderColor?: string;
   hasIcon?: boolean;
   showBorder?: boolean;
+  readOnlyTextColor?: string;
+  readOnlyBgColor?: string;
+  fontSize?: keyof typeof theme.FONT_SIZE;
+  inputPadding?: string;
+  readOnlyBorderColor?: string;
 }>`
   ${flexAlignCenter}
-  width:100%;
+  width: 100%;
   border-radius: 4px;
-  padding: 12px 16px;
+  padding: ${({ inputPadding }) => inputPadding ?? '12px 16px'};
   padding-left: ${({ hasIcon }) => (hasIcon ? '40px' : '16px')};
-  font-size: ${({ theme }) => theme.FONT_SIZE.sm};
+  font-size: ${({ fontSize, theme }) =>
+    fontSize ? theme.FONT_SIZE[fontSize] : theme.FONT_SIZE.sm};
   line-height: 1.6;
   letter-spacing: 0.2px;
   resize: none;
 
-  color: ${({ textColor, readOnly, theme }) =>
-    textColor ?? (readOnly ? theme.COLORS.gray[56] : theme.COLORS.black)};
+  color: ${({ textColor, readOnly, readOnlyTextColor, theme }) =>
+    readOnly ? (readOnlyTextColor ?? theme.COLORS.gray[56]) : (textColor ?? theme.COLORS.black)};
 
-  border: ${({ theme, readOnly }) => (readOnly ? 'none' : `1px solid ${theme.COLORS.gray[78]}`)};
+  border: ${({ theme, readOnly, borderColor, readOnlyBorderColor }) =>
+    `1px solid ${
+      readOnly ? (readOnlyBorderColor ?? 'transparent') : (borderColor ?? theme.COLORS.gray[78])
+    }`};
 
   &:focus {
     outline: none;
@@ -56,15 +66,15 @@ export const StyledInput = styled.input<{
     color: ${({ theme }) => theme.COLORS.gray[78]};
   }
 
-  ${({ readOnly }) =>
+  ${({ readOnly }: { readOnly?: boolean }) =>
     readOnly &&
     `
       cursor: not-allowed;
       pointer-events: none;
     `}
 
-  background-color: ${({ readOnly, theme }) =>
-    readOnly ? theme.COLORS.gray[90] : theme.COLORS.white};
+  background-color: ${({ readOnly, readOnlyBgColor, theme }) =>
+    readOnly ? (readOnlyBgColor ?? theme.COLORS.gray[90]) : theme.COLORS.white};
 `;
 
 export const ErrorText = styled.span`

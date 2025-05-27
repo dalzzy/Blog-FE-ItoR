@@ -52,29 +52,29 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
 }) => {
   const totalPages = Math.ceil(totalItems / size);
-  const currentGroup = Math.floor((currentPage - 1) / pagesPerGroup);
-  const startPage = currentGroup * pagesPerGroup + 1;
-  const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages);
-  const isLastGroup = endPage >= totalPages;
+  const currentGroup = Math.floor(currentPage / pagesPerGroup);
+  const startPage = currentGroup * pagesPerGroup;
+  const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages - 1);
+  const isLastGroup = endPage >= totalPages - 1;
 
   const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
   const handlePrevGroup = () => {
-    if (startPage > 1) onPageChange(startPage - 1);
+    if (startPage > 0) onPageChange(startPage - 1);
   };
 
   const handleNextGroup = () => {
-    if (endPage < totalItems) onPageChange(endPage + 1);
+    if (endPage < totalPages - 1) onPageChange(endPage + 1);
   };
 
   return (
     <Wrapper>
-      <ArrowButton disabled={startPage === 1} onClick={handlePrevGroup}>
+      <ArrowButton disabled={startPage === 0} onClick={handlePrevGroup}>
         <PrevSvg />
       </ArrowButton>
       {pageNumbers.map((page) => (
         <PageButton key={page} onClick={() => onPageChange(page)} $active={currentPage === page}>
-          {page}
+          {page + 1}
         </PageButton>
       ))}
       <ArrowButton disabled={isLastGroup} onClick={handleNextGroup}>

@@ -36,6 +36,10 @@ const SideBar: React.FC<SideBarProps> = ({ onClose }) => {
   const handleClick = {
     write: () => nav('/post/write'),
     logout: () => openModal('logout'),
+    myPage: () => {
+      nav('/my');
+      onClose();
+    },
   };
 
   return (
@@ -75,7 +79,12 @@ const SideBar: React.FC<SideBarProps> = ({ onClose }) => {
           {/* 버튼 섹션 */}
           {isLoggedIn ? (
             <FlexRow>
-              <Button variant="primary-outline" size="md" rounded="full">
+              <Button
+                variant="primary-outline"
+                size="md"
+                rounded="full"
+                onClick={handleClick.myPage}
+              >
                 나의 깃로그
               </Button>
               <Button

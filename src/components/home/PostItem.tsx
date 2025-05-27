@@ -1,10 +1,11 @@
 import theme from '@/styles/theme.styled';
 import styled from 'styled-components';
 import { flexAlignCenter, flexColumn, flexJustifyCenter } from '@/styles/common.styled';
-import { Image } from '@/components/index';
+import { Image } from '@/components';
 import { Post } from '@/types/post';
 import { formatPostDate } from '@/utils/formatPostDate';
 import { useNavigate } from 'react-router-dom';
+import DefaultProfileSvg from '@/assets/icon/ic_default_profile.svg?url';
 
 export interface PostItemProps {
   post: Post;
@@ -45,7 +46,7 @@ export const Text = styled.div<{
 
 export const FlexItem = styled.div<{ hasImage?: boolean }>`
   ${flexJustifyCenter};
-  gap: ${({ hasImage }) => (hasImage ? '24px' : '0')};
+  gap: ${({ hasImage }) => (hasImage ? '36px' : '0')};
 `;
 
 export const ItemContainer = styled.div`
@@ -73,9 +74,11 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     nav(`/post/${post.postId}`);
   };
 
+  const imageContent = post.contents?.find((c) => c.contentType === 'IMAGE');
+
   return (
     <ItemContainer onClick={handleClick}>
-      <FlexItem hasImage={!!post.image}>
+      <FlexItem hasImage={!!imageContent}>
         <TextContent>
           <Text fontWeight="medium" fontSize="md">
             {post.title}
@@ -88,10 +91,11 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
               .slice(0, 100) || '내용 없음'}
           </Text>
         </TextContent>
-        {post.image && (
+        {imageContent && (
           <Image
-            src={post.image!}
+            src={imageContent.content}
             width="120px"
+            height="120px"
             alt="post-image"
             borderRadius="2px"
             objectFit="cover"
@@ -101,7 +105,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
       </FlexItem>
       <FooterItem>
         <Image
-          src={post.profileUrl!}
+          src={
+            post.profileUrl && post.profileUrl.trim() !== '' ? post.profileUrl : DefaultProfileSvg
+          }
           alt="profile-img"
           width="20px"
           height="20px"
@@ -111,7 +117,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 
         <Text color="gray20">{post.nickName}</Text>
         <Text color="gray56">{formatPostDate(post.createdAt)}</Text>
-        <Text color="gray56">댓글{post.commentCount}</Text>
+        <Text color="gray56">댓글{post.comments.length}</Text>
       </FooterItem>
     </ItemContainer>
   );

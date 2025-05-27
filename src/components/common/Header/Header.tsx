@@ -7,7 +7,7 @@ import { useState } from 'react';
 import SideBar from '@/components/common/SideBar/SideBar';
 import { useNavigate } from 'react-router-dom';
 
-type HeaderVariant = 'default' | 'write' | 'detail' | 'action';
+type HeaderVariant = 'default' | 'write' | 'detail' | 'action' | 'edit';
 
 interface HeaderProps {
   variant?: HeaderVariant;
@@ -31,7 +31,8 @@ const renderRightSection = (
     const isDeleteConfirm = confirmLabel === '게시하기' || negativeLabel === '삭제하기';
 
     const resolvedConfirmLabel = confirmLabel ?? (isDeleteConfirm ? '게시하기' : '저장하기');
-    const resolvedNegativeLabel = negativeLabel ?? (isDeleteConfirm ? '삭제하기' : '취소하기');
+    const resolvedNegativeLabel =
+      negativeLabel !== undefined ? negativeLabel : isDeleteConfirm ? '삭제하기' : undefined;
 
     return (
       <ActionRight

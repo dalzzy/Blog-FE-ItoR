@@ -25,6 +25,7 @@ export interface ContentBlock {
   value: string;
   url?: string;
   isActive?: boolean;
+  placeholderHidden?: boolean;
 }
 
 export interface PostContent {

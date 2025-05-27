@@ -22,6 +22,7 @@ export const StyledTextarea = styled.textarea<{
   padding: 12px 16px;
   border-radius: 4px;
   resize: none;
+  overflow: hidden;
 
   color: ${({ inputColor, theme }) => inputColor ?? theme.COLORS.black};
   font-size: ${({ inputSize, theme }) => theme.FONT_SIZE[inputSize ?? 'md']};

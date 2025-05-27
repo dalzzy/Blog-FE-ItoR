@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const flexCenter = css`
   display: flex;
@@ -26,4 +26,9 @@ export const flexColumnCenter = css`
 export const flexJustifyCenter = css`
   display: flex;
   justify-content: center;
+`;
+
+export const ButtonWrapper = styled.div`
+  ${flexAlignCenter}
+  gap:8px;
 `;

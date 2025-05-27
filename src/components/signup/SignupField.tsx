@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { flexAlignCenter, flexColumn, flexColumnCenter } from '@/styles/common.styled';
+import { flexColumn, flexColumnCenter } from '@/styles/common.styled';
 import { Button, Image, Input } from '@/components';
 import { emailSignupFields, kakaoSignupFields } from '@/constants';
 import { PhotoSvg, DefaultProfileSvg, KakaoSvg } from '@/assets';
@@ -15,6 +15,7 @@ import { kakaoSignupApi, signupApi } from '@/api/auth/auth.api';
 import { useModal } from '@/context/ModalContext';
 import { useLocation } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { ButtonWrapper } from '@/styles/common.styled';
 
 interface SignupFieldProps {
   signupType: 'email' | 'kakao';
@@ -37,11 +38,6 @@ export const InputSection = styled.div`
 export const InputWrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
-`;
-
-export const ButtonWrapper = styled.div`
-  ${flexAlignCenter}
-  gap:8px;
 `;
 
 export const ProfileSection = styled.div`
@@ -144,7 +140,11 @@ const SignupField: React.FC<SignupFieldProps> = ({ signupType }) => {
       if (isEmailSignup) {
         emailSignupMutation.mutate(signupData);
       } else {
-        kakaoSignupMutation.mutate(signupData as KakaoSignupSchema);
+        kakaoSignupMutation.mutate({
+          ...(data as KakaoSignupSchema),
+          profilePicture,
+          kakaoId: Number(kakaoId),
+        });
       }
     }
   };

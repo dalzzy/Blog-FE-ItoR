@@ -19,6 +19,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   textColor?: string;
   borderColor?: string;
   height?: string;
+  backgroundColor?: string;
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -50,7 +51,14 @@ const StyledButton = styled.button<ButtonProps>`
     css`
       height: ${height};
     `}
-    
+
+    ${({ backgroundColor }) =>
+    backgroundColor &&
+    css`
+      background-color: ${backgroundColor};
+    `}
+
+  
   cursor: pointer;
 
   svg {
@@ -67,7 +75,15 @@ const StyledButton = styled.button<ButtonProps>`
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = 'primary', size = 'md', rounded = 'md', fullWidth = false, children, ...rest },
+    {
+      variant = 'primary',
+      size = 'md',
+      rounded = 'md',
+      fullWidth = false,
+      children,
+      backgroundColor,
+      ...rest
+    },
     ref,
   ) => {
     return (
@@ -77,6 +93,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         size={size}
         rounded={rounded}
         fullWidth={fullWidth}
+        backgroundColor={backgroundColor}
         {...rest}
       >
         {children}

@@ -6,6 +6,7 @@ import {
   Label,
   StyledInput,
 } from '@/components/common/Input/Input.styled';
+import theme from '@/styles/theme.styled';
 import { forwardRef } from 'react';
 
 interface InputProps {
@@ -21,6 +22,11 @@ interface InputProps {
   textColor?: string;
   borderColor?: string;
   icon?: React.ReactNode;
+  readOnlyTextColor?: string;
+  readOnlyBgColor?: string;
+  fontSize?: keyof typeof theme.FONT_SIZE;
+  inputPadding?: string;
+  readOnlyBorderColor?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -37,6 +43,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       textColor,
       borderColor,
       icon,
+      readOnlyTextColor,
+      readOnlyBgColor,
+      fontSize,
+      inputPadding,
+      readOnlyBorderColor,
       ...props
     },
     ref,
@@ -57,6 +68,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             textColor={textColor}
             borderColor={borderColor}
             hasIcon={!!icon}
+            readOnlyTextColor={readOnlyTextColor}
+            readOnlyBgColor={readOnlyBgColor}
+            fontSize={fontSize}
+            inputPadding={inputPadding}
+            readOnlyBorderColor={readOnlyBorderColor}
             {...props}
           />
         </InputBox>

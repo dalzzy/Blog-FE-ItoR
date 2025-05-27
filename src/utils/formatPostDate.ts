@@ -11,9 +11,9 @@ dayjs.extend(relativeTime);
 
 dayjs.locale('ko');
 
-export const formatPostDate = (createAt: string): string => {
-  const now = dayjs();
-  const postTime = dayjs.utc(createAt).tz('Asia/Seoul');
+export const formatPostDate = (createdAt: string): string => {
+  const now = dayjs().tz('Asia/Seoul');
+  const postTime = dayjs(createdAt).tz('Asia/Seoul');
   const diffInHours = now.diff(postTime, 'hour');
 
   if (diffInHours >= 24) {

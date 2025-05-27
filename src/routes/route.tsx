@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage, MyPage, Post, Signup, BlogDetail } from '@/pages';
+import { HomePage, MyPage, Post, Signup, BlogDetail, MyPageSetting } from '@/pages';
 import { KakaoLogin, Layout } from '@/components';
 
 const router = createBrowserRouter([
@@ -9,6 +9,7 @@ const router = createBrowserRouter([
     children: [
       { path: '', element: <HomePage /> },
       { path: '/my', element: <MyPage /> },
+      { path: '/my/setting', element: <MyPageSetting /> },
       { path: '/signup', element: <Signup /> },
       { path: '/signup/:type', element: <Signup /> },
       { path: '/post/write', element: <Post /> },

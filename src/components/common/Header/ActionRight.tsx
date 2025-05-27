@@ -3,9 +3,9 @@ import Button from '@/components/common/Button/Button';
 import { SectionWrapper } from '@/components/common/Header/Header.styled';
 
 interface ActionRightProps {
-  negativeLabel: string;
+  negativeLabel?: string;
   confirmLabel: string;
-  onClickNegative: () => void;
+  onClickNegative?: () => void;
   onClickConfirm: () => void;
 }
 
@@ -17,12 +17,21 @@ const ActionRight: React.FC<ActionRightProps> = ({
 }) => {
   return (
     <SectionWrapper>
-      <Button variant="text" size="xs" textColor={theme.COLORS.negative} onClick={onClickNegative}>
-        {negativeLabel}
-      </Button>
-      <Button variant="text" size="xs" textColor={theme.COLORS.black} onClick={onClickConfirm}>
-        {confirmLabel}
-      </Button>
+      {negativeLabel && (
+        <Button
+          variant="text"
+          size="xs"
+          textColor={theme.COLORS.negative}
+          onClick={onClickNegative}
+        >
+          {negativeLabel}
+        </Button>
+      )}
+      {confirmLabel && (
+        <Button variant="text" size="xs" textColor={theme.COLORS.black} onClick={onClickConfirm}>
+          {confirmLabel}
+        </Button>
+      )}
     </SectionWrapper>
   );
 };

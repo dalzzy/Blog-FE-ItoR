@@ -26,6 +26,7 @@ const BlogDetail: React.FC = () => {
       try {
         const response = await getPostItemApi(postId);
         setPost(response.data);
+        console.log('게시물 상세 조회 성공', response.data);
       } catch (err) {
         console.error('게시물 상세 조회 실패 ', err);
       } finally {
@@ -48,12 +49,12 @@ const BlogDetail: React.FC = () => {
           nickName={post.nickName}
           profileImage={post.profileUrl || ''}
           createAt={post.createdAt}
-          commentCount={post.commentCount || 0}
+          commentCount={post.comments.length || 0}
         />
         <ContentSection contents={post.contents ?? []} />
         <CommentSection
           postId={postId || ''}
-          commentCount={post.commentCount}
+          commentCount={post.comments.length}
           comments={post.comments}
         />
         <BlogFooter />

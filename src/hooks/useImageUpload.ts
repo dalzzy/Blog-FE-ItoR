@@ -21,6 +21,8 @@ export const useImageUpload = () => {
 
     const imageUrl = presignedUrl.split('?')[0];
     setUploadedUrl(imageUrl);
+
+    return imageUrl;
   }, []);
 
   const reset = () => {

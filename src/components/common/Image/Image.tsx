@@ -18,6 +18,7 @@ const ImageWrapper = styled.div<{
   height?: string;
   borderRadius?: string;
   thumbnail?: boolean;
+  isLoaded?: boolean;
 }>`
   position: relative;
   width: ${({ width }) => width || '100%'};
@@ -25,7 +26,7 @@ const ImageWrapper = styled.div<{
   height: ${({ height, thumbnail }) => (thumbnail ? 'auto' : height || 'auto')};
   overflow: hidden;
   border-radius: ${({ borderRadius }) => borderRadius || '0'};
-  background-color: ${({ theme }) => theme.COLORS.gray[56]};
+  background-color: ${({ isLoaded, theme }) => (isLoaded ? 'transparent' : theme.COLORS.gray[56])};
   aspect-ratio: ${({ thumbnail }) => (thumbnail ? '1 / 1' : 'auto')};
 `;
 
@@ -86,7 +87,13 @@ const Image: React.FC<LazyImageProps> = ({
   }, []);
 
   return (
-    <ImageWrapper ref={wrapperRef} width={width} height={height} borderRadius={borderRadius}>
+    <ImageWrapper
+      ref={wrapperRef}
+      width={width}
+      height={height}
+      borderRadius={borderRadius}
+      isLoaded={isLoaded}
+    >
       {!isLoaded && <Placeholder>{placeholder}</Placeholder>}
       {shouldLoad && (
         <StyledImage

@@ -13,6 +13,8 @@ import KakaoSvg from '@/assets/icon/ic_kakao_logo.svg?react';
 import CloseSvg from '@/assets/icon/ic_close_button.svg?react';
 import PhotoSvg from '@/assets/icon/ic_profile_upload.svg?react';
 import DeleteSvg from '@/assets/icon/ic_delete_modal.svg?react';
+import SettingSvg from '@/assets/icon/ic_setting.svg?react';
+import PlusSvg from '@/assets/icon/ic_profile_plus.svg?react';
 
 export {
   HamburgerSvg,
@@ -30,4 +32,6 @@ export {
   CloseSvg,
   PhotoSvg,
   DeleteSvg,
+  SettingSvg,
+  PlusSvg,
 };
